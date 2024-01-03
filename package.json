@@ -13,6 +13,7 @@
     "@prisma/client": "^5.7.1",
     "@stitches/react": "^1.2.8",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18"
   },

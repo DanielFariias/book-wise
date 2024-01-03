@@ -4,19 +4,35 @@ import { AuthButton } from '@components/primitives/auth-button'
 import { Text } from '@components/typography/text'
 
 import * as S from './styles'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
-export function AuthSection() {
+interface IAuthSectionProps {
+  callbackUrl?: string
+}
+
+export function AuthSection({ callbackUrl = '/' }: IAuthSectionProps) {
+  const router = useRouter()
+
+  function handleSignIn(provider?: string) {
+    if (!provider) return router.push(callbackUrl)
+
+    signIn(provider, {
+      callbackUrl,
+    })
+  }
+
   return (
     <S.AuthSectionContainer>
-      <AuthButton>
+      <AuthButton onClick={() => handleSignIn('google')}>
         <GoogleLogo weight="bold" size={32} />
         <Text>Entrar com o Google</Text>
       </AuthButton>
-      <AuthButton>
+      <AuthButton onClick={() => handleSignIn('github')}>
         <GithubLogo weight="bold" size={32} />
         <Text> Entrar com o Github </Text>
       </AuthButton>
-      <AuthButton>
+      <AuthButton onClick={() => handleSignIn()}>
         <RocketLaunch weight="bold" size={32} />
         <Text> Entrar como visitante </Text>
       </AuthButton>
