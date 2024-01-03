@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import Image from 'next/image'
 
 import { Heading } from '@components/typography/heading'
@@ -11,6 +13,10 @@ import * as S from './styles'
 export default function LoginPage() {
   return (
     <S.LoginContainer>
+      <Head>
+        <title>Login | BookWise</title>
+        <link rel="shortcut icon" href="/favicon.svg" type="image/svg" />
+      </Head>
       <S.LogoSection>
         <Image src={Logo} alt="BookWise logo" />
       </S.LogoSection>
