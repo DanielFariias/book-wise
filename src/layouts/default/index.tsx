@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { ReactNode } from 'react'
 
 import * as S from './styles'
+import { Sidebar } from '@components/sidebar'
 
 type DefaultLayoutProps = {
   children: ReactNode
@@ -17,7 +18,7 @@ export const DefaultLayout = ({ title, children }: DefaultLayoutProps) => {
         <link rel="shortcut icon" href="/favicon.svg" type="image/svg" />
       </Head>
 
-      <aside>sidebar</aside>
+      <Sidebar />
 
       <S.LayoutContent>{children}</S.LayoutContent>
     </S.LayoutContainer>
