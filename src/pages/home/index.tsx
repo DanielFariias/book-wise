@@ -1,14 +1,10 @@
-import { ReactElement } from 'react'
-
-import { DefaultLayout } from '@layouts/default'
-
 import { LatestRating } from '@components/latest-rating'
 
 import { PopularBooks } from '@components/popular-books'
 
 import * as S from './styles'
 
-function HomePage() {
+export function HomePageComponent() {
   return (
     <S.HomeContainer>
       <LatestRating />
@@ -16,9 +12,3 @@ function HomePage() {
     </S.HomeContainer>
   )
 }
-
-HomePage.getLayout = (page: ReactElement) => {
-  return <DefaultLayout title="Início">{page}</DefaultLayout>
-}
-
-export default HomePage

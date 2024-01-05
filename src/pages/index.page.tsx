@@ -1,17 +1,13 @@
-import { AuthButton } from '@components/primitives/auth-button'
-import { signOut, useSession } from 'next-auth/react'
-import { NextPageWithLayout } from './_app.page'
 import { ReactElement } from 'react'
+
 import { DefaultLayout } from 'src/layouts/default'
 
+import { NextPageWithLayout } from './_app.page'
+
+import { HomePageComponent } from './home'
+
 const HomePage: NextPageWithLayout = () => {
-  const session = useSession()
-  return (
-    <>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <AuthButton onClick={() => signOut()}>SignOut</AuthButton>
-    </>
-  )
+  return <HomePageComponent />
 }
 
 HomePage.getLayout = (page: ReactElement) => {
