@@ -4,12 +4,15 @@ import { DefaultLayout } from '@layouts/default'
 
 import { LatestRating } from '@components/latest-rating'
 
+import { PopularBooks } from '@components/popular-books'
+
 import * as S from './styles'
 
 function HomePage() {
   return (
     <S.HomeContainer>
       <LatestRating />
+      <PopularBooks />
     </S.HomeContainer>
   )
 }
