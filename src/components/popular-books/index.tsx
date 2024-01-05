@@ -2,9 +2,19 @@ import { Text } from '@components/typography/text'
 import { Link } from '@components/ui/Link'
 
 import * as S from './styles'
-import { BookCard } from '@components/book-card'
+import { BookCard, TBookWithAvgRating } from '@components/book-card'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@lib/axios'
 
 export function PopularBooks() {
+  const { data: popularBooks } = useQuery<TBookWithAvgRating[]>({
+    queryKey: ['popular-books'],
+    queryFn: async () => {
+      const response = await api.get('/books/popular')
+      return response.data?.books ?? []
+    },
+  })
+
   return (
     <S.PopularBooksContainer>
       <header>
@@ -13,20 +23,7 @@ export function PopularBooks() {
       </header>
 
       <section>
-        {Array.from({ length: 4 }).map((_, index) => (
-          <BookCard
-            key={index}
-            book={{
-              author: 'J. K. Rowling',
-              id: '1',
-              name: 'Harry Potter e a Pedra Filosofal',
-              avgRating: 4,
-              cover_url: 'https://github.com/danielfariias.png',
-              summary:
-                'oakdshjvaklsjfdh jkdsafh jkdh fkdjhf kljashjfk dhfdkljh sdajkhfkajlfh jkdashfdjkdshkjfsadjkfdsahadfskhdfljkdfsdfsjk fhd d sfladfskhdjklfdhsfadsh lfdsjkh ',
-            }}
-          />
-        ))}
+        {popularBooks?.map((book) => <BookCard key={book.id} book={book} />)}
       </section>
     </S.PopularBooksContainer>
   )

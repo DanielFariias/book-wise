@@ -7,6 +7,8 @@ import { ReactElement, ReactNode } from 'react'
 import { SessionProvider } from 'next-auth/react'
 
 import { globalStyles } from '@styles/globals'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@lib/react-query'
 
 export const nunito = Nunito({ subsets: ['latin'] })
 
@@ -28,9 +30,11 @@ export default function App({
 
   return (
     <SessionProvider session={session}>
-      <div className={`${nunito.className}`}>
-        {getLayout(<Component {...pageProps} />)}
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className={`${nunito.className}`}>
+          {getLayout(<Component {...pageProps} />)}
+        </div>
+      </QueryClientProvider>
     </SessionProvider>
   )
 }
