@@ -27,7 +27,7 @@ export default function LoginPage() {
         </Heading>
         <Text color={'gray-200'}>Faça seu login ou acesse como visitante.</Text>
 
-        <AuthSection />
+        <AuthSection canGuest />
       </S.RegisterSection>
     </S.LoginContainer>
   )
