@@ -9,9 +9,13 @@ import { useRouter } from 'next/navigation'
 
 interface IAuthSectionProps {
   callbackUrl?: string
+  canGuest?: boolean
 }
 
-export function AuthSection({ callbackUrl = '/' }: IAuthSectionProps) {
+export function AuthSection({
+  callbackUrl = '/',
+  canGuest,
+}: IAuthSectionProps) {
   const router = useRouter()
 
   function handleSignIn(provider?: string) {
@@ -32,10 +36,12 @@ export function AuthSection({ callbackUrl = '/' }: IAuthSectionProps) {
         <GithubLogo weight="bold" size={32} />
         <Text> Entrar com o Github </Text>
       </AuthButton>
-      <AuthButton onClick={() => handleSignIn()}>
-        <RocketLaunch weight="bold" size={32} />
-        <Text> Entrar como visitante </Text>
-      </AuthButton>
+      {canGuest && (
+        <AuthButton onClick={() => handleSignIn()}>
+          <RocketLaunch weight="bold" size={32} />
+          <Text> Entrar como visitante </Text>
+        </AuthButton>
+      )}
     </S.AuthSectionContainer>
   )
 }
