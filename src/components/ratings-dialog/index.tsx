@@ -119,7 +119,7 @@ export function RatingDialog({ children, bookId }: IRatingsDialogProps) {
                 </S.BookInfos>
               </S.BookDetailsWrapper>
 
-              <BookRatings ratings={book.ratings} />
+              <BookRatings ratings={book.ratings} bookId={bookId} />
             </>
           )}
         </S.DialogContent>
