@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { TRatingWithAuthor, UserRatingCard } from '@components/user-rating-card'
 import { Text } from '@components/typography/text'
@@ -6,6 +6,8 @@ import { Link } from '@components/ui/Link'
 
 import * as S from './styles'
 import { RatingForm } from '@components/rating-form'
+import { useSession } from 'next-auth/react'
+import { LoginDialog } from '@components/login-dialog'
 
 type BookRatingsProps = {
   ratings: TRatingWithAuthor[]
@@ -15,9 +17,13 @@ type BookRatingsProps = {
 export function BookRatings({ ratings, bookId }: BookRatingsProps) {
   const [showForm, setShowForm] = useState(false)
 
+  const { status, data: session } = useSession()
+
   function handleRate() {
     setShowForm((prevState) => !prevState)
   }
+
+  const isAuthenticated = status === 'authenticated'
 
   const sortedRatingsByDate = ratings?.sort((a, b) => {
     const dateA = new Date(a.created_at)
@@ -26,16 +32,25 @@ export function BookRatings({ ratings, bookId }: BookRatingsProps) {
     return dateB.getTime() - dateA.getTime()
   })
 
+  const canRate = ratings.every(
+    (rating) => rating.user_id !== session?.user?.id,
+  )
+
+  const RatingWrapper = isAuthenticated ? Fragment : LoginDialog
+
   return (
     <S.BookRatingsContainer>
       <header>
         <Text size="sm">Avaliações</Text>
-        <Link
-          href="/book/1/ratings"
-          text="Avaliar"
-          withoutIcon
-          onClick={handleRate}
-        />
+        {canRate && (
+          <RatingWrapper>
+            <Link
+              text="Avaliar"
+              withoutIcon
+              onClick={isAuthenticated ? handleRate : () => null}
+            />
+          </RatingWrapper>
+        )}
       </header>
 
       <section>
