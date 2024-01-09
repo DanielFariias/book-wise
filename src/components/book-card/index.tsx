@@ -6,6 +6,7 @@ import { RatingStars } from '@components/rating-starts'
 
 export type TBookWithAvgRating = Book & {
   avgRating: number
+  alreadyRead: boolean
 }
 
 type TBookCardProps = {
@@ -27,6 +28,8 @@ const IMAGE_SIZES = {
 export function BookCard({ book, size = 'md' }: TBookCardProps) {
   return (
     <S.BookCardContainer>
+      {book.alreadyRead && <S.ReadBadge>LIDO</S.ReadBadge>}
+
       <S.BookImage
         width={IMAGE_SIZES[size].width}
         height={IMAGE_SIZES[size].height}
