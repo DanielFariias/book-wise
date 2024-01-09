@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import * as S from './styles'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { BookOpen, BookmarkSimple, X } from '@phosphor-icons/react'
 import { Heading } from '@components/typography/heading'
 import { Text } from '@components/typography/text'
@@ -30,6 +30,13 @@ export function RatingDialog({ children, bookId }: IRatingsDialogProps) {
   const [open, setOpen] = useState(false)
 
   const router = useRouter()
+  const paramBookId = router.query.book as string
+
+  useEffect(() => {
+    if (paramBookId === bookId) {
+      setOpen(true)
+    }
+  }, [paramBookId, bookId])
 
   const { data: book } = useQuery<BookDetails>({
     queryKey: ['book', bookId],
