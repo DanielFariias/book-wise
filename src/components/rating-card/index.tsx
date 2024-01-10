@@ -27,25 +27,32 @@ export function RatingCard({ rating, variant = 'default' }: TRatingCardProps) {
     text: bookSummary,
     toggleShowMore,
     isShowingMore,
-  } = useToggleShowMore(rating.book.summary, MAX_SUMMARY_LENGTH)
+  } = useToggleShowMore(rating?.book?.summary, MAX_SUMMARY_LENGTH)
 
   return (
-    <S.RatingCardContainer>
-      <S.UserDetails>
-        <section>
-          <Link href={`/profile/${rating.user_id}`}>
-            <Avatar src={rating.user.avatar_url ?? ''} alt={rating.user.name} />
-          </Link>
+    <S.RatingCardContainer variant={variant}>
+      {variant === 'default' && (
+        <>
+          <S.UserDetails>
+            <section>
+              <Link href={`/profile/${rating.user_id}`}>
+                <Avatar
+                  src={rating.user.avatar_url ?? ''}
+                  alt={rating.user.name}
+                />
+              </Link>
 
-          <div>
-            <Text>{rating.user.name}</Text>
-            <Text size="sm" color={'gray-400'}>
-              {distance}
-            </Text>
-          </div>
-        </section>
-        <RatingStars rating={rating.rate} />
-      </S.UserDetails>
+              <div>
+                <Text>{rating.user.name}</Text>
+                <Text size="sm" color={'gray-400'}>
+                  {distance}
+                </Text>
+              </div>
+            </section>
+            <RatingStars rating={rating.rate} />
+          </S.UserDetails>
+        </>
+      )}
 
       <S.BookDetails>
         <Link

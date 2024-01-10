@@ -5,7 +5,7 @@ export const PopularBooksContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
-  marginTop: 60,
+  marginTop: 40,
 
   header: {
     display: 'flex',
